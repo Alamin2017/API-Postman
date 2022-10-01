@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "e39bee1d-6f1e-4356-9327-5fa3e160c7ca",
+		"name": "Weatherstack -SNIPPETS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20662687"
+	},
+	"item": [
+		{
+			"name": "Status 200-New York/Current weather",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115&query={{BaseCity}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "query",
+							"value": "{{BaseCity}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Response body/contains string and is equal to a string",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"New York, United States of America\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Yerevan\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.body({\r",
+							"    \"request\": {\r",
+							"        \"type\": \"City\",\r",
+							"        \"query\": \"New York, United States of America\",\r",
+							"        \"language\": \"en\",\r",
+							"        \"unit\": \"m\"\r",
+							"    },\r",
+							"    \"location\": {\r",
+							"        \"name\": \"New York\",\r",
+							"        \"country\": \"United States of America\",\r",
+							"        \"region\": \"New York\",\r",
+							"        \"lat\": \"40.714\",\r",
+							"        \"lon\": \"-74.006\",\r",
+							"        \"timezone_id\": \"America/New_York\",\r",
+							"        \"localtime\": \"2021-12-20 18:35\",\r",
+							"        \"localtime_epoch\": 1640025300,\r",
+							"        \"utc_offset\": \"-5.0\"\r",
+							"    },\r",
+							"    \"current\": {\r",
+							"        \"observation_time\": \"11:35 PM\",\r",
+							"        \"temperature\": 2,\r",
+							"        \"weather_code\": 116,\r",
+							"        \"weather_icons\": [\r",
+							"            \"https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png\"\r",
+							"        ],\r",
+							"        \"weather_descriptions\": [\r",
+							"            \"Partly cloudy\"\r",
+							"        ],\r",
+							"        \"wind_speed\": 13,\r",
+							"        \"wind_degree\": 190,\r",
+							"        \"wind_dir\": \"S\",\r",
+							"        \"pressure\": 1025,\r",
+							"        \"precip\": 0,\r",
+							"        \"humidity\": 48,\r",
+							"        \"cloudcover\": 25,\r",
+							"        \"feelslike\": -1,\r",
+							"        \"uv_index\": 1,\r",
+							"        \"visibility\": 16,\r",
+							"        \"is_day\": \"no\"\r",
+							"    }\r",
+							"});\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115&query=New York",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "query",
+							"value": "New York"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Response headers/Content-type header check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Date is present\", function () {\r",
+							"    pm.response.to.have.header(\"Date\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115&query=New York",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "query",
+							"value": "New York"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON value check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JSON value check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.request.type).to.eql(\"City\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Your local region test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.location.region).to.eql(\"New York\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115&query=New York",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "query",
+							"value": "New York"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set/get an environment variable",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							"pm.environment.set(\"query1\", \"Paris\");\r",
+							"\r",
+							"\r",
+							"console.log(pm.environment.get(\"query1\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "BaseCity",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set/ clear a collection variable",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"query2\", \"Toronto\");\r",
+							"pm.collectionVariables.set(\"query3\", \"Yerevan\");\r",
+							"\r",
+							"pm.collectionVariables.unset(\"query2\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key={{BasicAuth}}&query={{query2}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "{{BasicAuth}}"
+						},
+						{
+							"key": "query",
+							"value": "{{query2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Response time is less than 200ms",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(205);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115&query={{BaseCity}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "query",
+							"value": "{{BaseCity}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status code/Successful Post request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"ok\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115&query={{BaseCity}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "query",
+							"value": "{{BaseCity}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status code/name has string",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115&query={{BaseCity}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "query",
+							"value": "{{BaseCity}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Response body/Convert XML body to a JSON object",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonObject = xml2Json(responseBody);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115&query={{BaseCity}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "query",
+							"value": "{{BaseCity}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use of pre-request scripts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {\r",
+							"    console.log(response.json());\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"query4\", \"Armavir\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherstack.com/current?access_key=ca37374410ef2f88b56c6c32c48fb115&query={{query4}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherstack",
+						"com"
+					],
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "access_key",
+							"value": "ca37374410ef2f88b56c6c32c48fb115"
+						},
+						{
+							"key": "query",
+							"value": "{{query4}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BasicAuth",
+			"value": "ca37374410ef2f88b56c6c32c48fb115"
+		},
+		{
+			"key": "query3",
+			"value": ""
+		},
+		{
+			"key": "query4",
+			"value": ""
+		}
+	]
+}

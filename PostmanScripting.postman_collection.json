@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "a7ecc22f-7859-40e6-81d1-6ebb76aa0f07",
+		"name": "PostmanScripting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20662687"
+	},
+	"item": [
+		{
+			"name": "test_script",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"userid\", 2);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//status code validation\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"//multiple assertions\r",
+							"pm.test(\"validate multiple fields in response\",function(){\r",
+							"\r",
+							"    responseJson=pm.response.json();\r",
+							"    pm.expect(responseJson.data.id).to.eql(2);\r",
+							"    pm.expect(responseJson.data.email).to.eql(\"janet.weaver@reqres.in\");\r",
+							"    pm.expect(responseJson.data.first_name).to.eql(\"Janet\");\r",
+							"    pm.expect(responseJson.data.last_name).to.eql(\"Weaver\");\r",
+							"\r",
+							"});\r",
+							"// Handling responses that don't parse\r",
+							"pm.test(\"Body conatains string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"janet.weaver@reqres.in\");\r",
+							"});\r",
+							"\r",
+							"//status code being one of a set\r",
+							"pm.test(\"Sucessfull status code\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"});\r",
+							"//Tetsing headers\r",
+							"pm.test(\"Content type header present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\")\r",
+							"});\r",
+							"//Tetsing headers value\r",
+							"pm.test(\"Content type header value \", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\")\r",
+							"});\r",
+							"\r",
+							"//Response time\r",
+							"pm.test(\"Response time less than 2000ms \", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/{{userid}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
